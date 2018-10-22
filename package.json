@@ -1,16 +1,16 @@
 {
-  "name": "react-boilerplate",
+  "name": "PomodoroHelper",
   "version": "3.6.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "description": "This will help you with the pomodoro technique in a simple to use software and minimalistic design",
   "repository": {
     "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+    "url": "git://github.com/cesarahernandez/pomodorohelper"
   },
   "engines": {
     "npm": ">=5",
     "node": ">=8"
   },
-  "author": "Max Stoiber",
+  "author": "Cesar Hernandez",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
