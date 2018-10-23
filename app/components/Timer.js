@@ -9,11 +9,20 @@ export default class Timer extends React.Component{
 		const { time } = this.props
 		return(
 			<div>
-				<Button variant="outlined" color="secondary" onClick={this.props.startTimer}>
+				<Button variant="outlined"
+					color="secondary" 
+					onClick={this.props.startTimer}>
 					Start Timer
 				</Button>
-				<Button variant="outlined" color="secondary" onClick={this.props.resetTimer}>
+				<Button variant="outlined" 
+					color="secondary" 
+					onClick={this.props.resetTimer}>
 					Reset Timer
+				</Button>
+				<Button variant="outlined" 
+					color="secondary" 
+					onClick={this.props.toggleTimer}>
+					Pause/Resume	
 				</Button>
 				<span>{time}</span>
 			</div>

@@ -20,33 +20,61 @@ export default class HomePage extends React.PureComponent {
 	// There should be a table to track which minutes the user is going to have
 	// TODO have the user pick out which times that he/she wants to have
 	// TODO maybe I can have the user pick out how many section he/she wants
+	// TODO Make it a way so that i can stop the timer PAUSE TIMER
 	//I can always disable the button if intervalRunning is true
 	//There are 1500 seconds in 25 minutes
+	
 	state = {
 		time: 25,
+		paused: false,
 		intervalRunning: false,
 		timesRan: 0,
 		message: '',
 	}
+	intervalSet = (frequency) => {
+		console.log('thisis being set')
+		this.timer = setInterval(this.tick, frequency)
+	}
 	startTimer = () =>{
 		// The timer should go down 
 		if(!this.state.intervalRunning){
-			this.timer = setInterval(this.tick, 500)
 			this.setState({intervalRunning: true})
+			this.intervalSet(500)
 		}else{
 			this.setState({message: 'You can only press the start once'})
 		}
 	}
+	//Pause and resume timer SHOULD share the same button
+	//For now i'm going to make them completely seperated
+	//Toggle timer handles the pause and resume
+	toggleTimer = () =>{
+		if(!this.state.paused){
+
+			clearInterval(this.timer)
+			this.setState({paused: true, message:'Timer is PAUSED'})
+
+
+		}else if(this.state.paused){
+
+			this.intervalSet(500)
+			this.setState({paused: false, message:''})
+
+		}
+	}
 	// Resets the timer to its current value
 	resetTimer = () => {
+
 		clearInterval(this.timer)
 		this.setState({
 			time: 25,
 			intervalRunning: false,
 			message: '',
 		})
+
 	}
 
+	//The function that is being repeated over and over again
+	//every {frequency} time
 	tick = () => {
 
 		this.setState({time: this.state.time - 1})
@@ -60,20 +88,26 @@ export default class HomePage extends React.PureComponent {
 			})
 			clearInterval(this.timer)
 		}
+
 	}	
 	render() {
+
 		const { time } = this.state
+
 		return (
+
 		  <div>
 			<FormattedMessage {...messages.header} />
 			<Timer 
 				resetTimer={this.resetTimer}
 				time={this.state.time}
 				startTimer={this.startTimer}
+				toggleTimer={this.toggleTimer}
 			/>
 			<span>{this.state.message}</span>
 
 		  </div>
+
 		);
   }
 }
