@@ -1,0 +1,27 @@
+#controller{
+	display: block;
+	position: relative;
+  	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+	Button{
+		margin-right: 10px; 
+	}
+	.timer{
+		
+		margin-top: 15px;
+		border-style: solid;
+		border-color: green;
+		border-radius: 5px;
+		display: block;
+		text-align: center;
+		font-size: 3rem;
+		font-weight: 400;
+
+	}
+
+
+}
