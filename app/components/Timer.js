@@ -12,11 +12,23 @@ export default class Timer extends React.Component{
 
 		return  minutes + ':' + remainingSeconds
 	}
+	formatButtons = (time) => {
+		const {paused} = this.props
 
-	render(){
-		const { time } = this.props
-		return(
-			<div>
+
+		if(!paused){
+			return (
+				<div id="controller">
+					<Button variant="outlined" 
+						color="secondary" 
+						onClick={this.props.toggleTimer}>
+						Resume	
+					</Button>
+					<span className='timer' >{this.refactorTime(time)}</span>
+				</div>
+				)
+		}else{
+			return (
 				<div id="controller">
 					<Button variant="outlined"
 						color="secondary" 
@@ -28,13 +40,19 @@ export default class Timer extends React.Component{
 						onClick={this.props.resetTimer}>
 						Reset Timer
 					</Button>
-					<Button variant="outlined" 
-						color="secondary" 
-						onClick={this.props.toggleTimer}>
-						Pause/Resume	
-					</Button>
 					<span className='timer' >{this.refactorTime(time)}</span>
 				</div>
+			)
+		}
+
+
+	}
+
+	render(){
+		const { time } = this.props
+		return(
+			<div>
+				{this.formatButtons(time)}
 			</div>
 
 		)

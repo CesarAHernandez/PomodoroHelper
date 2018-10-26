@@ -11,7 +11,7 @@
 		margin-right: 10px; 
 	}
 	.timer{
-		
+		min-width:300px;
 		margin-top: 15px;
 		border-style: solid;
 		border-color: green;
@@ -22,6 +22,40 @@
 		font-weight: 400;
 
 	}
+
+}
+#optionController{
+	width: 40vw;
+	display: flex;
+	flex-direction: column;
+	.timeOptions{
+		display: flex;
+		flex-direction: column;
+		.timeOption-field{
+			align-self: center;
+		}
+	}
+	.restOptions{
+		display: flex;
+		flex-direction: column;
+		.restOption-field{
+			align-self: center;
+		}
+	}
+	.addOption{
+		align-self: center;
+		color: green;
+		cursor: pointer;
+
+	}
+	.removeOption{
+		align-self: center;
+		color:red;
+		cursor: pointer;
+
+	}
+	
+
 
 
 }

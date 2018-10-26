@@ -1,12 +1,13 @@
 import React from 'react';
 import {Icon, TextField} from '@material-ui/core/';
 import AddCircle from '@material-ui/icons/AddCircle';
-//import './main.scss';
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import './main.scss';
+
 
 
 export default class InputField extends React.Component{
-	//TODO add a button so that i can add more 
-	//TODO going to do flex-blox for the TextField
+	//TODO add remove feature in the indexfile
 
 
 	renderTimeOptions = () =>{
@@ -16,9 +17,10 @@ export default class InputField extends React.Component{
 					{[...timeOptions].map((option,i) =>
 						<TextField
 							key={i}
-							className="timeOptions-field"
+							className="timeOption-field"
 							label="Work Option"
 							name="timeOptions"
+							defaultValue={option}
 							onChange={(e) => {this.props.handleChange(e,i)}}
 							margin="normal"
 							variant="outlined"
@@ -34,10 +36,11 @@ export default class InputField extends React.Component{
 					{[...restOptions].map((option,i) =>
 						<TextField
 							key={i}
-							className="timeOptions-field"
+							className="restOption-field"
+							defaultValue={option}
 							label="Rest Option"
 							name="restOptions"
-							onChange={(e) => {this.props.handleChange(e,i)}}
+							onChange={(e) => this.props.handleChange(e,i)}
 							margin="normal"
 							variant="outlined"
 						/>
@@ -50,15 +53,13 @@ export default class InputField extends React.Component{
 		const { time,handleChange } = this.props
 		return(
 			<div>
-				<div id='timeComponent'>
-					<AddCircle onClick={this.props.addTimeOptions}/>
-					<form noValidate autoComplete='off'>
-						{this.renderTimeOptions()}
-					</form>
-					<AddCircle onClick={this.props.addRestOptions}/>
-					<form noValidate autoComplete='off' >
-						{this.renderRestOptions()}
-					</form>
+				<div id='optionController'>
+					{this.renderTimeOptions()}
+					<AddCircle className='addOption' onClick={this.props.addTimeOptions}/>
+					<RemoveCircle className='removeOption' onClick={this.props.addTimeOptions}/>
+					{this.renderRestOptions()}
+					<AddCircle className='addOption' onClick={this.props.addRestOptions}/>
+					<RemoveCircle className='removeOption' onClick={this.props.addTimeOptions}/>
 
 				</div>
 			</div>

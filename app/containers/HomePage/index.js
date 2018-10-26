@@ -19,11 +19,7 @@ import InputField from '../../components/InputField';
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
 	// There should be a table to track which minutes the user is going to have
-	// TODO have the user pick out which times that he/she wants to have
-	// TODO maybe I can have the user pick out how many section he/she wants
 	// TODO MAYBE I can always disable the button if intervalRunning is true instead of showing the message
-	// TODO make the user also include how long the break should be default 5 mins
-	// TODO fix the spam pause when the time is 0 issue
 	//There are 1500 seconds in 25 minutes
 	
 	//timeOptions = [1500,1500,1500,1500]
@@ -51,14 +47,14 @@ export default class HomePage extends React.PureComponent {
 	}
 	startTimer = () =>{
 		//Shows that the user that you can only press the starte button once
-		if(this.state.intervalRunning){
+		if(this.state.intervalRunning ){
 			var message = this.state.message
 			this.setState({message: 'You can only press the start once'})
 			setTimeout( ()=>this.setState( {message} ),1000 )
 			return
 		}
 		// The timer should go down 
-		this.setState({ time: this.state.timeOptions[0]})
+		//this.setState({ time: this.state.timeOptions[0]})
 		this.setState({intervalRunning: true,message:'Start working', paused: false})
 		this.intervalSet(this.workTicker,this.FREQUENCY)
 
@@ -203,6 +199,7 @@ export default class HomePage extends React.PureComponent {
 		}else{
 			this.setState({
 				timeOptions:[...this.state.timeOptions,""],
+				restOptions:[...this.state.restOptions,""],
 				message: 'You always have to have 1 less rest Options than timeoption'
 			})
 		}
@@ -245,6 +242,7 @@ export default class HomePage extends React.PureComponent {
 
 			/>
 			<Timer 
+				paused={this.state.paused}
 				resetTimer={this.resetTimer}
 				time={this.state.time}
 				startTimer={this.startTimer}
