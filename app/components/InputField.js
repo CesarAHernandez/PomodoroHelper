@@ -12,7 +12,7 @@ export default class InputField extends React.Component{
 	renderTimeOptions = () =>{
 		const {timeOptions} = this.props
 			return ( 
-				<div>
+				<div className='timeOptions'>
 					{[...timeOptions].map((option,i) =>
 						<TextField
 							key={i}
@@ -30,7 +30,7 @@ export default class InputField extends React.Component{
 	renderRestOptions = () => {
 		const {restOptions} = this.props
 			return ( 
-				<div>
+				<div className='restOptions'>
 					{[...restOptions].map((option,i) =>
 						<TextField
 							key={i}
@@ -50,12 +50,12 @@ export default class InputField extends React.Component{
 		const { time,handleChange } = this.props
 		return(
 			<div>
-				<div >
-					<AddCircle onClick={this.props.addOptions}/>
+				<div id='timeComponent'>
+					<AddCircle onClick={this.props.addTimeOptions}/>
 					<form noValidate autoComplete='off'>
 						{this.renderTimeOptions()}
 					</form>
-					<AddCircle onClick={this.props.addOptions}/>
+					<AddCircle onClick={this.props.addRestOptions}/>
 					<form noValidate autoComplete='off' >
 						{this.renderRestOptions()}
 					</form>

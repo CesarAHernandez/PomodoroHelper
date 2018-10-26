@@ -186,12 +186,26 @@ export default class HomePage extends React.PureComponent {
 		}
 
 	}
-	addOptions = () => {
-		var array = this.state.timeOptions
-		console.log(array)
+	addTimeOptions = () => {
+
 		this.setState({
-			timeOptions: array.push(0)
+			timeOptions:[...this.state.timeOptions,""] 
 		})
+	}
+	addRestOptions = () => {
+		//There always have to be 1 less rest option that time options
+
+
+		if(this.state.restOptions.length + 1 < this.state.timeOptions.length){
+			this.setState({
+				restOptions:[...this.state.restOptions,""] 
+			})
+		}else{
+			this.setState({
+				timeOptions:[...this.state.timeOptions,""],
+				message: 'You always have to have 1 less rest Options than timeoption'
+			})
+		}
 	}
 	handleChange = (e, key) =>{
 		//this.setState([name]: event.target.value})
@@ -205,7 +219,7 @@ export default class HomePage extends React.PureComponent {
 			console.log('timeOptions '+ this.state.timeOptions)
 		} else if(e.target.name == 'restOptions'){
 			console.log('restOptions ' + this.state.restOptions[key])
-			var restOptions = this.state.restOtions
+			var restOptions = this.state.restOptions
 			restOptions[key] = e.target.value
 			this.setState( {restOptions} )
 			console.log('restOptions ' + this.state.restOptions[key])
@@ -222,7 +236,8 @@ export default class HomePage extends React.PureComponent {
 		  <div>
 			<FormattedMessage {...messages.header} />
 			<InputField 
-				addOptions={this.addOptions}
+				addTimeOptions={this.addTimeOptions}
+				addRestOptions={this.addRestOptions}
 				time={this.state.time}
 				handleChange={this.handleChange}
 				timeOptions={this.state.timeOptions}
