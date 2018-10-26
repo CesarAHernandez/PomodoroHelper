@@ -5,7 +5,7 @@
  *
  * NOTE: while this component should technically be a stateless functional
  * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
+ }* reloading is not a necessity for you then you can refactor it and remove
  * the linting exception.
  */
 
@@ -14,6 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import messages from './messages';
 import Timer from '../../components/Timer';
+import InputField from '../../components/InputField';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
@@ -25,17 +26,22 @@ export default class HomePage extends React.PureComponent {
 	// TODO fix the spam pause when the time is 0 issue
 	//There are 1500 seconds in 25 minutes
 	
-	timeOptions = [1500,1500,1500,1500]
-	restOptions = [900,900,900]
+	//timeOptions = [1500,1500,1500,1500]
+	//restOptions = [900,900,900]
 	FREQUENCY = 10
 	state = {
-		time: this.timeOptions[0],
+		timeOptions: [1500,1400,1300,1200],
+		restOptions: [900,900,900],
+		time: 0,
 		paused: true,
 		onBreak: false,
 		intervalRunning: false,
 		timesRan: 0,
 		message: '',
 		option:'current',
+	}
+	componentWillMount(){
+		this.setState({ time: this.state.timeOptions[0]})
 	}
 	intervalSet = (tickerFunction,frequency) => {
 		if(!this.state.intervalRunning){
@@ -52,6 +58,7 @@ export default class HomePage extends React.PureComponent {
 			return
 		}
 		// The timer should go down 
+		this.setState({ time: this.state.timeOptions[0]})
 		this.setState({intervalRunning: true,message:'Start working', paused: false})
 		this.intervalSet(this.workTicker,this.FREQUENCY)
 
@@ -93,7 +100,7 @@ export default class HomePage extends React.PureComponent {
 		if(this.state.option == 'current'){
 			clearInterval(this.timer)
 			this.setState({
-				time: this.timeOptions[this.state.timesRan],
+				time: this.state.timeOptions[this.state.timesRan],
 				intervalRunning: false,
 				message: '',
 			})
@@ -106,7 +113,7 @@ export default class HomePage extends React.PureComponent {
 					option: 'current',
 					timesRan: 0,
 					onBreak: false,
-					time: this.timeOptions[0],
+					time: this.state.timeOptions[0],
 				})
 			}catch(err){
 				console.log('Error: ' + err)
@@ -123,7 +130,7 @@ export default class HomePage extends React.PureComponent {
 			if(this.state.time <= 1){
 				//then we stop when the time runs out
 				//TODO Show a message thet the pomodoro is finished and reset the timer
-				if(this.state.timesRan == this.timeOptions.length - 1){
+				if(this.state.timesRan == this.state.timeOptions.length - 1){
 					clearInterval(this.timer)
 					this.setState({
 					message: 'You pomodoro has finished and the time has reset',
@@ -136,7 +143,7 @@ export default class HomePage extends React.PureComponent {
 					this.setState({
 						onBreak: true,
 						intervalRunning: false,
-						time: this.restOptions[this.state.timesRan],
+						time: this.state.restOptions[this.state.timesRan],
 					})
 					clearInterval(this.timer)
 					//TODO After a full times has gone by we should call restTicker
@@ -147,7 +154,7 @@ export default class HomePage extends React.PureComponent {
 			this.setState({time: this.state.time - 1,message:'Start Working'})
 
 		}catch(err){
-			this.setState({message: 'Error: '+ err})
+			this.setState({message: 'Work Ticker Error: '+ err})
 		}
 
 	}	
@@ -158,11 +165,10 @@ export default class HomePage extends React.PureComponent {
 			if(this.state.time <= 1){
 
 				this.setState({
-					time: this.timeOptions[this.state.timesRan],
 					timesRan: this.state.timesRan += 1,
 					onBreak: false,
 					intervalRunning: false,
-				})
+				},() =>{ this.setState({time: this.state.timeOptions[this.state.timesRan]})})
 
 				clearInterval(this.timer)
 			//call the workTicker when restTime has run out
@@ -175,9 +181,36 @@ export default class HomePage extends React.PureComponent {
 		}catch(err){
 
 			this.setState({
-				message: 'Error:' + err
+				message: 'Rest Ticker Error:' + err
 			})
 		}
+
+	}
+	addOptions = () => {
+		var array = this.state.timeOptions
+		console.log(array)
+		this.setState({
+			timeOptions: array.push(0)
+		})
+	}
+	handleChange = (e, key) =>{
+		//this.setState([name]: event.target.value})
+		//this.setState({[name]: [name][e.target.value]})
+		//c
+		if(e.target.name == 'timeOptions'){
+			console.log('timeOptions '+ this.state.timeOptions[key])
+			var timeOptions = this.state.timeOptions
+			timeOptions[key] = e.target.value
+			this.setState( {timeOptions} )
+			console.log('timeOptions '+ this.state.timeOptions)
+		} else if(e.target.name == 'restOptions'){
+			console.log('restOptions ' + this.state.restOptions[key])
+			var restOptions = this.state.restOtions
+			restOptions[key] = e.target.value
+			this.setState( {restOptions} )
+			console.log('restOptions ' + this.state.restOptions[key])
+		}
+
 
 	}
 	render() {
@@ -188,6 +221,14 @@ export default class HomePage extends React.PureComponent {
 
 		  <div>
 			<FormattedMessage {...messages.header} />
+			<InputField 
+				addOptions={this.addOptions}
+				time={this.state.time}
+				handleChange={this.handleChange}
+				timeOptions={this.state.timeOptions}
+				restOptions={this.state.restOptions}
+
+			/>
 			<Timer 
 				resetTimer={this.resetTimer}
 				time={this.state.time}
