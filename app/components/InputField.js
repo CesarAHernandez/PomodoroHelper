@@ -14,7 +14,7 @@ export default class InputField extends React.Component{
 		const {timeOptions} = this.props
 			return ( 
 				<div className='timeOptions'>
-					{[...timeOptions].map((option,i) =>
+                {[...timeOptions].map((option,i) =>
 						<TextField
 							key={i}
 							className="timeOption-field"

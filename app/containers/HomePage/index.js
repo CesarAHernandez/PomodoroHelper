@@ -14,6 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import Timer from '../../components/Timer';
 import InputField from '../../components/InputField';
+import './../../components/main.scss';
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
@@ -130,6 +131,7 @@ export default class HomePage extends React.PureComponent {
 					option:'full'
 					})
 					this.resetTimer()
+                    this.sendAlert("thisisis")
 					return
 
 				}else{
@@ -231,6 +233,9 @@ export default class HomePage extends React.PureComponent {
 
 
 	}
+    sendAlert = (message) => {
+        alert(message)
+    }
 	render() {
 
 		const { time } = this.state
@@ -238,10 +243,10 @@ export default class HomePage extends React.PureComponent {
 		return (
 
 		  <div>
-			  <div className="summary">
+			  <div id="summary">
 				<span className="header">Pomodoro Technique</span>
-				<p className="description">The Pomodore technique is to help you become more production</p>
-				<p className="description">The usual times that people choose is 20 work 5 rest 20 work 5 rest 20 work 15 rest restart</p>
+				<p>The Pomodore technique is to help you become more productive</p>
+				<p>The usual times that people choose is 20mins work 5mins rest 20mins work 5mins rest 20mins work 15mins rest, then restart</p>
 			  </div>
 			<InputField 
 				addTimeOptions={this.addTimeOptions}
