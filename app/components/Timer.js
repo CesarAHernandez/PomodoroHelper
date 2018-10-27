@@ -15,7 +15,6 @@ export default class Timer extends React.Component{
 	formatButtons = (time) => {
 		const {paused} = this.props
 
-
 		if(!paused){
 			return (
 				<div id="controller">

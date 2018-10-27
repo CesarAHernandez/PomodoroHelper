@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, TextField} from '@material-ui/core/';
+import {TextField} from '@material-ui/core/';
 import AddCircle from '@material-ui/icons/AddCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import './main.scss';
@@ -55,12 +55,9 @@ export default class InputField extends React.Component{
 			<div>
 				<div id='optionController'>
 					{this.renderTimeOptions()}
-					<AddCircle className='addOption' onClick={this.props.addTimeOptions}/>
-					<RemoveCircle className='removeOption' onClick={this.props.addTimeOptions}/>
+					<AddCircle className='addOption' onClick={this.props.addOptions}/>
+					<RemoveCircle className='removeOption' onClick={this.props.addOptions}/>
 					{this.renderRestOptions()}
-					<AddCircle className='addOption' onClick={this.props.addRestOptions}/>
-					<RemoveCircle className='removeOption' onClick={this.props.addTimeOptions}/>
-
 				</div>
 			</div>
 
