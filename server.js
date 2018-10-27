@@ -7,10 +7,10 @@ const path = require('path')
 
 const app = express()
 
-app.use("/", serveStatic ( path.join(__dirname, '/public')));
+app.use("/", serveStatic ( path.join(__dirname, '/app')));
 
 app.get('/',function(req,res){
-    res.rendFile(__dirname + '/public/index.html')
+    res.rendFile(__dirname + '/app/index.html')
 })
 
 const port = process.env.PORT || 5000 ;
