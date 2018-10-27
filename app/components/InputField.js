@@ -21,7 +21,7 @@ export default class InputField extends React.Component{
 							label="Work Option"
 							name="timeOptions"
 							defaultValue={option}
-							onChange={(e) => {this.props.handleChange(e,i)}}
+							onChange={ (e) => this.props.handleChange(e,i) }
 							margin="normal"
 							variant="outlined"
 						/>
@@ -56,10 +56,8 @@ export default class InputField extends React.Component{
 				<div id='optionController'>
 					{this.renderTimeOptions()}
 					<AddCircle className='addOption' onClick={this.props.addTimeOptions}/>
-					<RemoveCircle className='removeOption' onClick={this.props.addTimeOptions}/>
+					<RemoveCircle className='removeOption' onClick={this.props.removeTimeOptions}/>
 					{this.renderRestOptions()}
-					<AddCircle className='addOption' onClick={this.props.addRestOptions}/>
-					<RemoveCircle className='removeOption' onClick={this.props.addTimeOptions}/>
 
 				</div>
 			</div>

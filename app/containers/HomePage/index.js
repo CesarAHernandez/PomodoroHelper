@@ -11,7 +11,6 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import messages from './messages';
 import Timer from '../../components/Timer';
 import InputField from '../../components/InputField';
@@ -19,10 +18,9 @@ import InputField from '../../components/InputField';
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.PureComponent {
 	// There should be a table to track which minutes the user is going to have
-	// TODO MAYBE I can always disable the button if intervalRunning is true instead of showing the message
 	//There are 1500 seconds in 25 minutes
+    //TODO Make sure to add an input that would let the user decide if he/she would like the time would be in seconds or in minutes
 	
-	//timeOptions = [1500,1500,1500,1500]
 	//restOptions = [900,900,900]
 	FREQUENCY = 10
 	state = {
@@ -35,9 +33,9 @@ export default class HomePage extends React.PureComponent {
 		timesRan: 0,
 		message: '',
 		option:'current',
-	}
+	};
 	componentWillMount(){
-		this.setState({ time: this.state.timeOptions[0]})
+		this.setState({ time: this.state.timeOptions[0]});
 	}
 	intervalSet = (tickerFunction,frequency) => {
 		if(!this.state.intervalRunning){
@@ -54,7 +52,7 @@ export default class HomePage extends React.PureComponent {
 			return
 		}
 		// The timer should go down 
-		//this.setState({ time: this.state.timeOptions[0]})
+		this.setState({ time: this.state.timeOptions[this.state.timesRan]})
 		this.setState({intervalRunning: true,message:'Start working', paused: false})
 		this.intervalSet(this.workTicker,this.FREQUENCY)
 
@@ -125,7 +123,6 @@ export default class HomePage extends React.PureComponent {
 		try{
 			if(this.state.time <= 1){
 				//then we stop when the time runs out
-				//TODO Show a message thet the pomodoro is finished and reset the timer
 				if(this.state.timesRan == this.state.timeOptions.length - 1){
 					clearInterval(this.timer)
 					this.setState({
@@ -142,7 +139,6 @@ export default class HomePage extends React.PureComponent {
 						time: this.state.restOptions[this.state.timesRan],
 					})
 					clearInterval(this.timer)
-					//TODO After a full times has gone by we should call restTicker
 					setTimeout(this.intervalSet,2000,this.restTicker, this.FREQUENCY)
 					return
 				}
@@ -185,9 +181,20 @@ export default class HomePage extends React.PureComponent {
 	addTimeOptions = () => {
 
 		this.setState({
-			timeOptions:[...this.state.timeOptions,""] 
+            timeOptions:[...this.state.timeOptions,""],
+			restOptions:[...this.state.restOptions,""] 
 		})
+
 	}
+    removeTimeOptions= () =>{
+        console.log("WE are removing the time options")
+        this.setState({
+            timeOptions:[...this.state.timeOptions.slice(0,this.state.timeOptions.length-1)],
+            restOptions:[...this.state.restOptions.slice(0,this.state.restOptions.length-1)],
+        })
+
+
+    }
 	addRestOptions = () => {
 		//There always have to be 1 less rest option that time options
 
@@ -209,17 +216,17 @@ export default class HomePage extends React.PureComponent {
 		//this.setState({[name]: [name][e.target.value]})
 		//c
 		if(e.target.name == 'timeOptions'){
-			console.log('timeOptions '+ this.state.timeOptions[key])
+
 			var timeOptions = this.state.timeOptions
 			timeOptions[key] = e.target.value
 			this.setState( {timeOptions} )
-			console.log('timeOptions '+ this.state.timeOptions)
+
 		} else if(e.target.name == 'restOptions'){
-			console.log('restOptions ' + this.state.restOptions[key])
+
 			var restOptions = this.state.restOptions
 			restOptions[key] = e.target.value
 			this.setState( {restOptions} )
-			console.log('restOptions ' + this.state.restOptions[key])
+
 		}
 
 
@@ -231,15 +238,18 @@ export default class HomePage extends React.PureComponent {
 		return (
 
 		  <div>
-			<FormattedMessage {...messages.header} />
+			  <div className="summary">
+				<span className="header">Pomodoro Technique</span>
+				<p className="description">The Pomodore technique is to help you become more production</p>
+				<p className="description">The usual times that people choose is 20 work 5 rest 20 work 5 rest 20 work 15 rest restart</p>
+			  </div>
 			<InputField 
 				addTimeOptions={this.addTimeOptions}
-				addRestOptions={this.addRestOptions}
+				removeTimeOptions={this.removeTimeOptions}
 				time={this.state.time}
 				handleChange={this.handleChange}
 				timeOptions={this.state.timeOptions}
 				restOptions={this.state.restOptions}
-
 			/>
 			<Timer 
 				paused={this.state.paused}
