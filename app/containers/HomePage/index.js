@@ -56,7 +56,7 @@ export default class HomePage extends React.PureComponent {
     this.setState({ time: this.state.timeOptions[this.state.timesRan] });
     this.setState({
       intervalRunning: true,
-      message: 'Start working',
+      message: 'Start Working!',
       paused: false,
     });
     this.intervalSet(this.workTicker, this.FREQUENCY);
