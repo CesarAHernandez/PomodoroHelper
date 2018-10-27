@@ -14,14 +14,14 @@ export default class InputField extends React.Component{
 		const {timeOptions} = this.props
 			return ( 
 				<div className='timeOptions'>
-					{[...timeOptions].map((option,i) =>
+                {[...timeOptions].map((option,i) =>
 						<TextField
 							key={i}
 							className="timeOption-field"
 							label="Work Option"
 							name="timeOptions"
 							defaultValue={option}
-							onChange={(e) => {this.props.handleChange(e,i)}}
+							onChange={ (e) => this.props.handleChange(e,i) }
 							margin="normal"
 							variant="outlined"
 						/>
@@ -55,9 +55,16 @@ export default class InputField extends React.Component{
 			<div>
 				<div id='optionController'>
 					{this.renderTimeOptions()}
+<<<<<<< HEAD
 					<AddCircle className='addOption' onClick={this.props.addOptions}/>
 					<RemoveCircle className='removeOption' onClick={this.props.addOptions}/>
 					{this.renderRestOptions()}
+=======
+					<AddCircle className='addOption' onClick={this.props.addTimeOptions}/>
+					<RemoveCircle className='removeOption' onClick={this.props.removeTimeOptions}/>
+					{this.renderRestOptions()}
+
+>>>>>>> 22392dd415dd81da2966046ef71d007ee6ffde3b
 				</div>
 			</div>
 
