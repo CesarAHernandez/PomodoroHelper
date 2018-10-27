@@ -10,8 +10,6 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 import Timer from '../../components/Timer';
 import InputField from '../../components/InputField';
 import './../../components/main.scss';
@@ -131,7 +129,7 @@ export default class HomePage extends React.PureComponent {
 					option:'full'
 					})
 					this.resetTimer()
-                    this.sendAlert("thisisis")
+                    this.sendAlert("The Pomodor Effect has finished")
 					return
 
 				}else{
@@ -180,7 +178,7 @@ export default class HomePage extends React.PureComponent {
 		}
 
 	}
-	addOptions = () => {
+	addOption = () => {
 
 		this.setState({
             timeOptions:[...this.state.timeOptions,""],
@@ -188,11 +186,11 @@ export default class HomePage extends React.PureComponent {
 		})
 
 	}
-    removeTimeOptions= () =>{
+    removeOption = () =>{
         console.log("WE are removing the time options")
         this.setState({
             timeOptions:[...this.state.timeOptions.slice(0,this.state.timeOptions.length-1)],
-            restOptions:[...this.state.restOptions.slice(0,this.state.restOptions.length-1)],
+            restOptions:[...this.state.restOptions.slice(0,this.state.restOptions.length-1)]
         })
 
 
@@ -221,11 +219,7 @@ export default class HomePage extends React.PureComponent {
         alert(message)
     }
 	render() {
-
-		const { time } = this.state
-
 		return (
-
 		  <div>
 			  <div id="summary">
 				<span className="header">Pomodoro Technique</span>
@@ -233,8 +227,8 @@ export default class HomePage extends React.PureComponent {
 				<p>The usual times that people choose is 20mins work 5mins rest 20mins work 5mins rest 20mins work 15mins rest, then restart</p>
 			  </div>
 			<InputField 
-				addTimeOptions={this.addTimeOptions}
-				removeTimeOptions={this.removeTimeOptions}
+				addOption={this.addOption}
+				removeOption={this.removeOption}
 				time={this.state.time}
 				handleChange={this.handleChange}
 				timeOptions={this.state.timeOptions}
