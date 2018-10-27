@@ -46,7 +46,7 @@ export default class HomePage extends React.PureComponent {
 		//Shows that the user that you can only press the starte button once
 		if(this.state.intervalRunning ){
 			var message = this.state.message
-			this.setState({message: 'You can only press the start once'})
+			this.setState({message: 'You can only press start once'})
 			setTimeout( ()=>this.setState( {message} ),1000 )
 			return
 		}
